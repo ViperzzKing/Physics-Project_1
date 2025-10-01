@@ -1,16 +1,31 @@
+using System;
 using UnityEngine;
 
 public class CarController : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public Rigidbody rb;
+    public float torque;
+
+    public HingeJoint[] motorControl;
+    public GameObject[] wheels;
+    public bool motorToggle;
+
+    private void Update()
     {
-        
+        foreach (var motar in motorControl)
+        {
+            motar.useMotor = motorToggle ? true : false;
+        }
+
+        foreach (var wheel in wheels)
+        {   
+            wheel.transform.Rotate(0, torque, 0);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        
+        float turn = Input.GetAxis("Horizontal");
     }
+    
 }
